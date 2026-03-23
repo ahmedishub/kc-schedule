@@ -1,0 +1,379 @@
+:root {
+  --primary-green: #1b5e20;
+  --accent-gold: #c5a059;
+  --bg-light: #f8f9fa;
+  --text-dark: #2d3436;
+  --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  --border-radius: 12px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+/* This centers the three items and pushes logos to the sides */
+.header-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Ensures the text stays in the middle */
+.header-text {
+  text-align: center;
+  flex: 1; /* This makes the text container take up the middle space */
+}
+
+/* Logo Sizing: Adjust 'height' to fit your header height */
+.header-logo {
+  height: 120px; /* Change this to make logos bigger or smaller */
+  width: auto;
+  object-fit: contain;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+  .header-logo {
+      height: 40px; /* Smaller logos on phones */
+  }
+  .header-text h1 {
+      font-size: 1.1rem;
+  }
+  #current-date {
+      font-size: 0.8rem;
+  }
+}
+
+.main-header {
+  background: var(--primary-green);
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.main-header h1 {
+  margin: 0;
+  line-height: 1;
+  font-family: AgencyFB;
+  font-size: 4.5rem;
+}
+
+#current-date {
+  margin: 5px 0 0;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--accent-gold);
+}
+
+/* Grid Layout */
+.region-group {
+  margin: 40px 0;
+}
+
+.region-title {
+  border-left: 5px solid var(--accent-gold);
+  padding-left: 15px;
+  margin-bottom: 20px;
+  color: var(--primary-green);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.masjid-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+/* Masjid Cards */
+.masjid-card {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.2s;
+  border: 1px solid #eee;
+}
+
+.masjid-card:hover { transform: translateY(-3px); }
+
+/* Address Link Styling */
+.masjid-address a {
+  text-decoration: none; /* Remove default underline */
+  color: #666; /* Keep original color */
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+/* Hover effect: Changes color to ISGH Green and moves slightly */
+.masjid-address a:hover {
+  color: var(--primary-green);
+  transform: translateX(3px);
+}
+
+/* Optional: Add a small location icon before the address */
+.masjid-address a::before {
+  font-size: 0.9rem;
+  filter: grayscale(100%); /* Makes emoji subtle */
+  transition: filter 0.2s;
+}
+
+.masjid-address a:hover::before {
+  filter: grayscale(0%); /* Brings color back to icon on hover */
+}
+
+.masjid-name {
+  font-size: 1.25rem;
+  font-weight: 500; /* Extra bold for the name */
+  color: var(--primary-green);
+  line-height: 1.2;
+}
+
+/* Search Bar Styling */
+.search-wrapper {
+  margin: 20px 0;
+  text-align: center;
+}
+
+#masjid-search {
+  width: 100%;
+  max-width: 600px;
+  padding: 12px 20px;
+  border: 2px solid #ddd;
+  border-radius: 30px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+  box-shadow: var(--card-shadow);
+}
+
+#masjid-search:focus {
+  border-color: var(--primary-green);
+}
+
+/* Search Bar Styling */
+.search-wrapper {
+  margin: 20px 0;
+  text-align: center;
+}
+
+#masjid-search {
+  width: 100%;
+  max-width: 600px;
+  padding: 12px 20px;
+  border: 2px solid #ddd;
+  border-radius: 30px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+  box-shadow: var(--card-shadow);
+}
+
+#masjid-search:focus {
+  border-color: var(--primary-green);
+}
+
+.masjid-address {
+  font-size: 0.85rem; /* Smaller font for address */
+  color: #666;
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-right: 5px;
+}
+
+.khutbah-slot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1px solid #f0f0f0;
+}
+
+.time {
+  font-weight: 700;
+  color: var(--primary-green);
+  background: #e8f5e9;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.khateeb {
+  font-weight: 600;
+  color: #555;
+  text-align: right;
+}
+
+.tba { font-style: italic; color: #999; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .masjid-grid { grid-template-columns: 1fr; }
+  .main-header h1 { font-size: 1.4rem; }
+}
+
+@media print {
+  .main-header { position: static; background: white; color: black; }
+  .masjid-card { box-shadow: none; border: 1px solid #ccc; }
+}
+
+/* RESET */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+.page {
+  width: 1400px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+/* HEADER */
+.top-header {
+  display: grid;
+  grid-template-columns: 120px 1fr 120px;
+  align-items: center;
+  background: #1b5e20;
+  color: white;
+  padding: 10px;
+}
+
+.logo {
+  height: 70px;
+}
+
+.title-block {
+  text-align: center;
+}
+
+.title-block h1 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: #f1c27d;
+  margin-top: 4px;
+}
+
+/* DATE BAR */
+.date-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #f5f5f5;
+  border-bottom: 3px solid #1b5e20;
+  text-align: center;
+  font-weight: 600;
+  padding: 6px 0;
+}
+
+/* GRID */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin-top: 6px;
+}
+
+/* ZONE COLUMN */
+.zone-column {
+  border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+}
+
+.zone-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  background: #1b5e20;
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 6px 0;
+}
+
+/* ROW */
+.row {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr 1fr;
+  border-top: 1px solid #000;
+  font-size: 11px;
+}
+
+.masjid {
+  padding: 4px;
+  font-weight: 600;
+}
+
+.time {
+  padding: 4px;
+  text-align: center;
+}
+
+.khateeb {
+  padding: 4px;
+  text-align: right;
+}
+
+/* ZONE COLORS */
+.central .zone-label { background: #f4b400; }
+.north .zone-label { background: #4caf50; }
+.south .zone-label { background: #2196f3; }
+.southwest .zone-label { background: #ff7043; }
+.southeast .zone-label { background: #8e24aa; }
+.northwest .zone-label { background: #607d8b; }
+
+/* FOOTER */
+.footer {
+  margin-top: 8px;
+}
+
+.feedback {
+  background: #c62828;
+  color: white;
+  text-align: center;
+  padding: 6px;
+  font-weight: 600;
+}
+
+.whatsapp {
+  background: #2e7d32;
+  color: #f1c27d;
+  text-align: center;
+  padding: 6px;
+  font-weight: 600;
+}
+

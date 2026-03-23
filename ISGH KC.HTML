@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <header class="main-header">
+        <div class="container header-grid">
+            <img src="/img/kc-logo.png" alt="KC Logo" class="header-logo kc-logo">
+            
+            <div class="header-text">
+                <h1>ISGH KHUTBAH SCHEDULE</h1>
+                <p id="current-date">Loading date...</p>
+            </div>
+            
+            <img src="/img/isgh-logo.png" alt="ISGH Logo" class="header-logo isgh-logo">
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="search-wrapper">
+            <input type="text" id="masjid-search" placeholder="Search by Masjid Name, Address, or Khateeb...">
+        </div>
+        <main id="schedule-container"></main>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
