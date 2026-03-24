@@ -156,31 +156,9 @@ body {
   border-color: var(--primary-green);
 }
 
-/* Search Bar Styling */
-.search-wrapper {
-  margin: 20px 0;
-  text-align: center;
-}
-
-#masjid-search {
-  width: 100%;
-  max-width: 600px;
-  padding: 12px 20px;
-  border: 2px solid #ddd;
-  border-radius: 30px;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.3s;
-  box-shadow: var(--card-shadow);
-}
-
-#masjid-search:focus {
-  border-color: var(--primary-green);
-}
-
 .masjid-address {
   font-size: 0.85rem; /* Smaller font for address */
-  color: #666;
+  color: var(--accent-gold);
   margin-top: 4px;
   font-weight: 400;
 }
@@ -227,6 +205,7 @@ body {
   }
  
   .main-header h1 {
+    font-family: Celevenia;
     font-size: 3rem;       /* was 3.5rem — breathable but not giant */
   }
  
@@ -251,6 +230,24 @@ body {
     border-left: 0;
     padding-left: 15px;
   } 
+  
+  /* Search Bar Styling */
+  .search-wrapper {
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  #masjid-search {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 20px;
+    border: 0;
+    border-radius: 30px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+    box-shadow: var(--card-shadow);
+  }
 
   /* Cards: single column, rounder corners, smaller padding */
   .masjid-grid {
@@ -325,23 +322,6 @@ body {
 @media print {
   .main-header { position: static; background: white; color: black; }
   .masjid-card { box-shadow: none; border: 1px solid #ccc; }
-}
-
-/* RESET */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #fff;
-  font-family: 'Inter', sans-serif;
-}
-
-.page {
-  width: 1400px;
-  margin: 0 auto;
-  padding: 10px;
 }
 
 /* HEADER */
