@@ -1,379 +1,495 @@
+/* ============================================================
+   ISGH KHUTBAH SCHEDULE — Refined Mobile-First Stylesheet
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@400;500;600&display=swap');
+
+/* ── CSS Variables ─────────────────────────────────────────── */
 :root {
-  --primary-green: #1b5e20;
-  --accent-gold: #c5a059;
-  --bg-light: #f8f9fa;
-  --text-dark: #2d3436;
-  --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  --border-radius: 12px;
+  --green-deep:    #1b5e20;
+  --green-mid:     #2e7d32;
+  --green-light:   #e8f5e9;
+  --green-border:  #c8e6c9;
+  --gold:          #c5a059;
+  --gold-light:    #f5e9d6;
+  --gold-dark:     #a0783a;
+  --bg:            #f4f6f4;
+  --surface:       #ffffff;
+  --text:          #1a2e1a;
+  --text-muted:    #5a7a5a;
+  --text-light:    #8aaa8a;
+  --shadow-sm:     0 2px 8px rgba(27, 94, 32, 0.08);
+  --shadow-md:     0 6px 20px rgba(27, 94, 32, 0.12);
+  --radius-sm:     8px;
+  --radius-md:     14px;
+  --radius-lg:     20px;
+  --header-h:      80px;
+  --transition:    0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* ── Reset & Base ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg-light);
-  color: var(--text-dark);
-  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
   line-height: 1.6;
+  min-height: 100vh;
 }
 
+/* ── Container ─────────────────────────────────────────────── */
 .container {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 16px;
 }
 
-/* Header */
-/* This centers the three items and pushes logos to the sides */
-.header-grid {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-}
-
-/* Ensures the text stays in the middle */
-.header-text {
-  text-align: center;
-  flex: 1; /* This makes the text container take up the middle space */
-}
-
-/* Logo Sizing: Adjust 'height' to fit your header height */
-.header-logo {
-  height: 120px; /* Change this to make logos bigger or smaller */
-  width: auto;
-  object-fit: contain;
-}
-
-/* Mobile Adjustments */
-@media (max-width: 600px) {
-  .header-logo {
-      height: 40px; /* Smaller logos on phones */
-  }
-  .header-text h1 {
-      font-size: 1.1rem;
-  }
-  #current-date {
-      font-size: 0.8rem;
-  }
-}
-
+/* ══════════════════════════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════════════════════════ */
 .main-header {
-  background: var(--primary-green);
-  color: white;
-  padding: 1rem 0;
-  text-align: center;
+  background: var(--green-deep);
   position: sticky;
   top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 200;
+  box-shadow: 0 3px 16px rgba(0,0,0,0.25);
+  /* Subtle noise texture for depth */
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 50%, rgba(0,0,0,0.08) 0%, transparent 60%);
 }
 
-.main-header h1 {
-  margin: 0;
-  line-height: 1;
-  font-family: Celevenia;
-  font-size: 4.5rem;
+.header-grid {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  min-height: var(--header-h);
+}
+
+.header-logo {
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+  transition: opacity var(--transition);
+}
+
+.header-text {
+  text-align: center;
+  padding: 0 8px;
+}
+
+.header-text h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.1rem, 3.5vw, 2rem);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.03em;
+  line-height: 1.15;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
 #current-date {
-  margin: 5px 0 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(0.7rem, 2vw, 0.95rem);
   font-weight: 500;
-  font-size: 1.5rem;
-  color: var(--accent-gold);
+  color: var(--gold);
+  margin-top: 3px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-/* Grid Layout */
+/* ══════════════════════════════════════════════════════════════
+   SEARCH BAR
+══════════════════════════════════════════════════════════════ */
+.search-wrapper {
+  padding: 20px 0 10px;
+  position: relative;
+}
+
+.search-wrapper::before {
+  content: '🔍';
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  pointer-events: none;
+  opacity: 0.5;
+  margin-top: 5px;
+}
+
+#masjid-search {
+  width: 100%;
+  padding: 13px 18px 13px 44px;
+  background: var(--surface);
+  border: 2px solid var(--green-border);
+  border-radius: 50px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text);
+  outline: none;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  -webkit-appearance: none;
+}
+
+#masjid-search::placeholder { color: var(--text-light); }
+
+#masjid-search:focus {
+  border-color: var(--green-mid);
+  box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.12), var(--shadow-sm);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   REGION GROUPS
+══════════════════════════════════════════════════════════════ */
 .region-group {
-  margin: 40px 0;
+  margin: 32px 0;
 }
 
 .region-title {
-  border-left: 5px solid var(--accent-gold);
-  padding-left: 15px;
-  margin-bottom: 20px;
-  color: var(--primary-green);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-weight: 700;
+  color: var(--green-deep);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
 }
 
+.region-title::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 1.4em;
+  background: linear-gradient(180deg, var(--gold), var(--gold-dark));
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.region-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--green-border), transparent);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MASJID GRID
+══════════════════════════════════════════════════════════════ */
 .masjid-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
 }
 
-/* Masjid Cards */
+/* ══════════════════════════════════════════════════════════════
+   MASJID CARDS
+══════════════════════════════════════════════════════════════ */
 .masjid-card {
-  background: white;
-  border-radius: var(--border-radius);
-  padding: 20px;
-  box-shadow: var(--card-shadow);
-  transition: transform 0.2s;
-  border: 1px solid #eee;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--green-border);
+  transition: transform var(--transition), box-shadow var(--transition);
+  position: relative;
+  overflow: hidden;
 }
 
-.masjid-card:hover { transform: translateY(-3px); }
+/* Subtle green top accent line */
+.masjid-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green-mid), var(--gold));
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
 
-/* Address Link Styling */
+.masjid-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Card Header ───────────────────────────────────────────── */
+.masjid-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--green-deep);
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+
+/* ── Address ───────────────────────────────────────────────── */
+.masjid-address {
+  margin-bottom: 12px;
+}
+
 .masjid-address a {
-  text-decoration: none; /* Remove default underline */
-  color: #666; /* Keep original color */
+  display: inline-flex;
   align-items: center;
   gap: 5px;
-  transition: color 0.2s ease, transform 0.2s ease;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  background: var(--green-light);
+  border: 1px solid var(--green-border);
+  border-radius: 20px;
+  padding: 3px 10px 3px 8px;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+  line-height: 1.4;
 }
 
-/* Hover effect: Changes color to ISGH Green and moves slightly */
-.masjid-address a:hover {
-  color: var(--primary-green);
-  transform: translateX(3px);
-}
-
-/* Optional: Add a small location icon before the address */
 .masjid-address a::before {
-  font-size: 0.9rem;
-  filter: grayscale(100%); /* Makes emoji subtle */
-  transition: filter 0.2s;
+  content: '📍';
+  font-size: 0.75rem;
+  flex-shrink: 0;
 }
 
-.masjid-address a:hover::before {
-  filter: grayscale(0%); /* Brings color back to icon on hover */
+.masjid-address a:hover {
+  background: var(--green-deep);
+  color: #ffffff;
+  border-color: var(--green-deep);
+  transform: translateX(2px);
 }
 
-.masjid-name {
-  font-size: 1.25rem;
-  font-weight: 500; /* Extra bold for the name */
-  color: var(--primary-green);
-  line-height: 1.2;
+/* ── Khutbah Slots ─────────────────────────────────────────── */
+.khutbah-slot {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid #f0f4f0;
 }
 
-/* Search Bar Styling */
-.search-wrapper {
-  margin: 20px 0;
-  text-align: center;
+.khutbah-slot:first-of-type { border-top: none; }
+
+.label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold-dark);
+  background: var(--gold-light);
+  border-radius: 4px;
+  padding: 2px 6px;
+  white-space: nowrap;
 }
 
-#masjid-search {
-  width: 100%;
-  max-width: 600px;
-  padding: 12px 20px;
-  border: 2px solid #ddd;
-  border-radius: 30px;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.3s;
-  box-shadow: var(--card-shadow);
+.time {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--green-deep);
+  background: var(--green-light);
+  border: 1px solid var(--green-border);
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  justify-self: start;
 }
 
-#masjid-search:focus {
-  border-color: var(--primary-green);
+.khateeb {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: right;
+  line-height: 1.3;
 }
 
-/* Search Bar Styling */
-.search-wrapper {
-  margin: 20px 0;
-  text-align: center;
-}
-
-#masjid-search {
-  width: 100%;
-  max-width: 600px;
-  padding: 12px 20px;
-  border: 2px solid #ddd;
-  border-radius: 30px;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.3s;
-  box-shadow: var(--card-shadow);
-}
-
-#masjid-search:focus {
-  border-color: var(--primary-green);
-}
-
-.masjid-address {
-  font-size: 0.85rem; /* Smaller font for address */
-  color: #666;
-  margin-top: 4px;
+.tba {
+  font-style: italic;
+  color: var(--text-light);
   font-weight: 400;
 }
 
-.label {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--accent-gold);
-  margin-right: 5px;
+/* ══════════════════════════════════════════════════════════════
+   DESKTOP — 768px+
+══════════════════════════════════════════════════════════════ */
+@media (min-width: 768px) {
+  :root { --header-h: 90px; }
+
+  .header-logo { height: 70px; }
+  .header-text h1 { font-size: 2rem; }
+  #current-date { font-size: 1rem; }
+
+  .search-wrapper { padding: 28px 0 14px; }
+  #masjid-search { max-width: 560px; display: block; margin: 0 auto; }
+
+  .masjid-grid { gap: 20px; }
+  .masjid-card { padding: 22px 24px; }
 }
 
-.khutbah-slot {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-top: 1px solid #f0f0f0;
+@media (min-width: 1024px) {
+  .header-logo { height: 90px; }
+  .header-text h1 { font-size: 2.5rem; }
 }
 
-.time {
-  font-weight: 700;
-  color: var(--primary-green);
-  background: #e8f5e9;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.9rem;
+/* ══════════════════════════════════════════════════════════════
+   MOBILE — max 600px  (the refined overhaul)
+══════════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  :root { --header-h: 68px; }
+
+  /* Header: tighter, still balanced */
+  .header-grid {
+    grid-template-columns: 44px 1fr 44px;
+    gap: 8px;
+    padding: 8px 12px;
+    min-height: var(--header-h);
+  }
+
+  .header-logo { height: 40px; }
+
+  .header-text h1 {
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
+
+  #current-date {
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* Search: full-width, no icon overlap issue */
+  .search-wrapper {
+    padding: 14px 0 8px;
+  }
+
+  .search-wrapper::before { left: 14px; }
+
+  #masjid-search {
+    font-size: 0.9rem;
+    padding: 12px 16px 12px 40px;
+    border-radius: 40px;
+  }
+
+  /* Region title: smaller, still clear */
+  .region-group { margin: 24px 0; }
+
+  .region-title {
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* Cards: full-width, comfortable padding */
+  .masjid-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .masjid-card {
+    padding: 15px 16px;
+    border-radius: var(--radius-sm);
+  }
+
+  .masjid-name { font-size: 1rem; }
+
+  /* Address pill stays readable on small screens */
+  .masjid-address a {
+    font-size: 0.75rem;
+    padding: 3px 10px 3px 8px;
+  }
+
+  /* Slot layout: stack time + khateeb naturally */
+  .khutbah-slot {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 4px 8px;
+    padding: 10px 0;
+  }
+
+  .label {
+    grid-column: 1 / 2;
+    grid-row: 1;
+    font-size: 0.62rem;
+  }
+
+  .time {
+    grid-column: 2 / 3;
+    grid-row: 1;
+    font-size: 0.88rem;
+    padding: 3px 8px;
+    justify-self: start;
+    align-self: center;
+  }
+
+  .khateeb {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    text-align: left;
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    padding-left: 2px;
+  }
 }
 
-.khateeb {
-  font-weight: 600;
-  color: #555;
-  text-align: right;
-}
-
-.tba { font-style: italic; color: #999; }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .masjid-grid { grid-template-columns: 1fr; }
-  .main-header h1 { font-size: 1.4rem; }
-}
-
+/* ══════════════════════════════════════════════════════════════
+   PRINT — desktop only, hidden on mobile via media query
+══════════════════════════════════════════════════════════════ */
 @media print {
-  .main-header { position: static; background: white; color: black; }
-  .masjid-card { box-shadow: none; border: 1px solid #ccc; }
+  .main-header {
+    position: static;
+    background: white !important;
+    color: black !important;
+    box-shadow: none;
+  }
+
+  .main-header h1,
+  #current-date { color: black !important; }
+
+  #masjid-search { display: none; }
+
+  .masjid-card {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    break-inside: avoid;
+  }
+
+  .masjid-card::before { display: none; }
+  .masjid-card:hover { transform: none; }
 }
 
-/* RESET */
-* {
-  box-sizing: border-box;
+/* Hide print button on mobile */
+@media (max-width: 600px) {
+  .print-btn,
+  [onclick*="print"],
+  button[class*="print"] {
+    display: none !important;
+  }
 }
 
-body {
-  margin: 0;
-  background: #fff;
-  font-family: 'Inter', sans-serif;
+/* ══════════════════════════════════════════════════════════════
+   UTILITY — smooth fade-in on load
+══════════════════════════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.page {
-  width: 1400px;
-  margin: 0 auto;
-  padding: 10px;
+.masjid-card {
+  animation: fadeUp 0.35s ease both;
 }
 
-/* HEADER */
-.top-header {
-  display: grid;
-  grid-template-columns: 120px 1fr 120px;
-  align-items: center;
-  background: #1b5e20;
-  color: white;
-  padding: 10px;
-}
-
-.logo {
-  height: 70px;
-}
-
-.title-block {
-  text-align: center;
-}
-
-.title-block h1 {
-  margin: 0;
-  font-size: 28px;
-  letter-spacing: 2px;
-}
-
-.subtitle {
-  font-size: 11px;
-  color: #f1c27d;
-  margin-top: 4px;
-}
-
-/* DATE BAR */
-.date-bar {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background: #f5f5f5;
-  border-bottom: 3px solid #1b5e20;
-  text-align: center;
-  font-weight: 600;
-  padding: 6px 0;
-}
-
-/* GRID */
-.schedule-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 6px;
-  margin-top: 6px;
-}
-
-/* ZONE COLUMN */
-.zone-column {
-  border: 1px solid #000;
-  display: flex;
-  flex-direction: column;
-}
-
-.zone-label {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  background: #1b5e20;
-  color: white;
-  text-align: center;
-  font-weight: 700;
-  letter-spacing: 2px;
-  padding: 6px 0;
-}
-
-/* ROW */
-.row {
-  display: grid;
-  grid-template-columns: 1.4fr 0.8fr 1fr;
-  border-top: 1px solid #000;
-  font-size: 11px;
-}
-
-.masjid {
-  padding: 4px;
-  font-weight: 600;
-}
-
-.time {
-  padding: 4px;
-  text-align: center;
-}
-
-.khateeb {
-  padding: 4px;
-  text-align: right;
-}
-
-/* ZONE COLORS */
-.central .zone-label { background: #f4b400; }
-.north .zone-label { background: #4caf50; }
-.south .zone-label { background: #2196f3; }
-.southwest .zone-label { background: #ff7043; }
-.southeast .zone-label { background: #8e24aa; }
-.northwest .zone-label { background: #607d8b; }
-
-/* FOOTER */
-.footer {
-  margin-top: 8px;
-}
-
-.feedback {
-  background: #c62828;
-  color: white;
-  text-align: center;
-  padding: 6px;
-  font-weight: 600;
-}
-
-.whatsapp {
-  background: #2e7d32;
-  color: #f1c27d;
-  text-align: center;
-  padding: 6px;
-  font-weight: 600;
-}
-
+/* Stagger cards naturally */
+.masjid-card:nth-child(1)  { animation-delay: 0.03s; }
+.masjid-card:nth-child(2)  { animation-delay: 0.07s; }
+.masjid-card:nth-child(3)  { animation-delay: 0.11s; }
+.masjid-card:nth-child(4)  { animation-delay: 0.15s; }
+.masjid-card:nth-child(5)  { animation-delay: 0.19s; }
+.masjid-card:nth-child(6)  { animation-delay: 0.23s; }
