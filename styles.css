@@ -7,8 +7,16 @@
   --border-radius: 12px;
 }
 
+/* RESET */
+* { box-sizing: border-box; }
+
+.page {
+  width: 1400px;            /* this forces a wide layout */
+}
+
 body {
   font-family: 'Inter', sans-serif;
+  background: #fff;         /* overrides --bg-light */
   background-color: var(--bg-light);
   color: var(--text-dark);
   margin: 0;
