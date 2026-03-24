@@ -116,7 +116,7 @@ function parseCSV(csv) {
 
     return rows.slice(1).map(cols => {
         const rawNameAddress = cols[1] || "";
-        const parts = rawNameAddress.split(/\r?\n|\n/);
+        const parts = rawNameAddress.split('\n');
         
         // Inside the .map() part of parseCSV
         return {
@@ -198,3 +198,108 @@ function renderSchedule(data) {
 }
 
 init();
+
+
+document.getElementById('download-pdf').addEventListener('click', async () => {
+    const btn = document.getElementById('download-pdf');
+    const originalText = btn.innerText;
+    btn.innerText = "Generating PDF...";
+    
+    const template = document.createElement('div');
+    template.id = 'pdf-template';
+    
+    const dateText = document.getElementById('current-date').innerText;
+    let contentHTML = `
+        <div class="pdf-header" style="display: flex; align-items: center; justify-content: center; border-bottom: 3px solid #1b5e20; padding-bottom: 25px;">
+            
+            <div style="width: 200px; display: flex; justify-content: flex-start;">
+                <img src="/img/kc-logo.png" style="height: 150px; width: auto; object-fit: contain;" alt="KC Logo">
+            </div>
+            
+            <div style="text-align: center; flex: 1;">
+                <h1 style="color: #1b5e20; font-family: 'Celevenia', sans-serif; font-size: 3.5rem; margin: 0; line-height: 1; text-transform: uppercase;">
+                    ISGH KHUTBAH SCHEDULE
+                </h1>
+                <p style="color: #c5a059; font-size: 1.5rem; font-weight: bold; margin: 4px 0 0 0;">
+                    ${dateText}
+                </p>
+            </div>
+
+            <div style="width: 200px; display: flex; justify-content: flex-end;">
+                <img src="/img/isgh-logo.png" style="height: 150px; width: auto; object-fit: contain;" alt="ISGH Logo">
+            </div>
+        </div>
+        <div class="pdf-grid">`;
+
+    // Grouping Logic
+    const zones = [...new Set(MASTER_DATA.map(item => item.zone))].sort((a,b) => (ZONE_ORDER[a] || 99) - (ZONE_ORDER[b] || 99));
+
+    zones.forEach(zoneName => {
+        contentHTML += `<div class="pdf-zone-group">`; 
+        contentHTML += `<div class="pdf-zone-header">${zoneName}</div>`;
+        
+        const zoneData = MASTER_DATA.filter(item => item.zone === zoneName);
+        const groupedMasjids = zoneData.reduce((acc, curr) => {
+            if (!acc[curr.name]) acc[curr.name] = [];
+            acc[curr.name].push(curr);
+            return acc;
+        }, {});
+
+        for (const masjidName in groupedMasjids) {
+            const slots = groupedMasjids[masjidName];
+            const address = slots[0].address;
+
+            contentHTML += `
+                <div class="pdf-row">
+                    <div class="pdf-masjid-col">
+                        <div class="pdf-m-name">${masjidName}</div>
+                        <div class="pdf-m-address">${address}</div>
+                    </div>
+                    <div class="pdf-slots-col">
+                        ${slots.map((slot, index) => {
+                            // Only show 1st, 2nd, etc. if there is more than one khutbah
+                            const ordinal = slots.length > 1 ? `<span class="pdf-ordinal">${index + 1}${getOrdinal(index + 1)}</span>` : '';
+                            return `
+                                <div class="pdf-slot-item">
+                                    <div>
+                                        ${ordinal}
+                                        <span class="pdf-time-tag">${slot.time}</span>
+                                    </div>
+                                    <span class="pdf-khateeb">${slot.khateeb}</span>
+                                </div>`;
+                        }).join('')}
+                    </div>
+                </div>`;
+        }
+        contentHTML += `</div>`; // END WRAPPER
+    });
+
+    contentHTML += `</div><div style="text-align:center; margin-top:30px; color:#888;">Live Updates: ISGH.ORG/WEEK-SCHEDULE</div>`;
+    template.innerHTML = contentHTML;
+    document.body.appendChild(template);
+
+    // Helper for 1st, 2nd, 3rd
+    function getOrdinal(n) {
+        const s = ["th", "st", "nd", "rd"], v = n % 100;
+        return (s[(v - 20) % 10] || s[v] || s[0]);
+    }
+
+    try {
+        const canvas = await html2canvas(template, { scale: 2, useCORS: true });
+        const imgData = canvas.toDataURL('image/jpeg', 1.0);
+        
+        const imgWidth = 210; 
+        const pageHeight = (canvas.height * imgWidth) / canvas.width;
+        
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', [imgWidth, pageHeight]);
+        
+        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, pageHeight);
+        pdf.save(`${dateText}.pdf`);
+    } catch (err) {
+        console.error("PDF generation failed", err);
+    } finally {
+        document.body.removeChild(template);
+        btn.innerText = originalText;
+    }
+});
