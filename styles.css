@@ -214,11 +214,11 @@ body {
  
   .main-header h1 {
     font-family: Celevenia;
-    font-size: 3rem;       /* was 3.5rem — breathable but not giant */
+    font-size: 1.5rem;       /* was 3.5rem — breathable but not giant */
   }
  
   #current-date {
-    font-size: 1rem;      /* was 1.5rem */
+    font-size: 0.5rem;      /* was 1.5rem */
     margin-top: 2px;
   }
   
