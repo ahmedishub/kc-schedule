@@ -43,6 +43,164 @@ body {
   object-fit: contain;
 }
 
+/* ── Shared mobile baseline (≤ 768px) ── */
+@media (max-width: 768px) {
+ 
+  /* Header: tighter, still sticky */
+  .main-header {
+    padding: 0.55rem 0;
+  }
+ 
+  .main-header h1 {
+    font-size: 1.6rem;       /* was 3.5rem — breathable but not giant */
+    letter-spacing: 0.5px;
+  }
+ 
+  #current-date {
+    font-size: 0.95rem;      /* was 1.5rem */
+    margin-top: 2px;
+  }
+ 
+  /* Header logo row */
+  .header-logo {
+    height: 52px;            /* tighter than desktop */
+  }
+ 
+  .header-grid {
+    gap: 8px;
+    padding: 0 8px;
+  }
+ 
+  /* Region title */
+  .region-group {
+    margin: 24px 0;
+  }
+ 
+  .region-title {
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    padding-left: 10px;
+    border-left-width: 4px;
+  }
+ 
+  /* Cards: single column, rounder corners, smaller padding */
+  .masjid-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+ 
+  .masjid-card {
+    padding: 14px 16px;
+    border-radius: 16px;       /* rounder */
+    border: 1px solid #e8e8e8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);  /* softer shadow */
+  }
+ 
+  .masjid-card:hover {
+    transform: translateY(-2px);   /* subtler lift */
+  }
+ 
+  /* Masjid name */
+  .masjid-name {
+    font-size: 1.05rem;
+  }
+ 
+  /* Address */
+  .masjid-address {
+    font-size: 0.78rem;
+    margin-top: 2px;
+  }
+ 
+  /* Khutbah slot rows */
+  .khutbah-slot {
+    padding: 8px 0;
+    gap: 6px;
+  }
+ 
+  .time {
+    font-size: 0.82rem;
+    padding: 3px 7px;
+    border-radius: 6px;
+  }
+ 
+  .khateeb {
+    font-size: 0.88rem;
+  }
+ 
+  .label {
+    font-size: 0.68rem;
+  }
+ 
+  /* Search bar */
+  #masjid-search {
+    padding: 10px 16px;
+    font-size: 0.92rem;
+    border-radius: 24px;
+  }
+ 
+  .search-wrapper {
+    margin: 14px 0;
+  }
+ 
+  /* Print button — hide on mobile (printing from phone is rare) */
+  .print-btn {
+    display: none;
+  }
+ 
+  /* Page container breathing room */
+  .container {
+    padding: 0 14px;
+  }
+}
+ 
+/* ── Small phones (≤ 480px) — extra tightening ── */
+@media (max-width: 480px) {
+ 
+  .main-header h1 {
+    font-size: 1.25rem;
+  }
+ 
+  #current-date {
+    font-size: 0.82rem;
+  }
+ 
+  .header-logo {
+    height: 40px;
+  }
+ 
+  .masjid-card {
+    padding: 12px 14px;
+    border-radius: 14px;
+  }
+ 
+  .masjid-name {
+    font-size: 0.98rem;
+  }
+ 
+  .masjid-address {
+    font-size: 0.74rem;
+  }
+ 
+  .time {
+    font-size: 0.78rem;
+    padding: 2px 6px;
+  }
+ 
+  .khateeb {
+    font-size: 0.82rem;
+  }
+ 
+  .container {
+    padding: 0 10px;
+  }
+ 
+  /* Slightly reduce the slot row gap on tiny screens */
+  .khutbah-slot {
+    flex-wrap: wrap;          /* lets khateeb name wrap if it's long */
+    gap: 4px;
+  }
+}
+
 .main-header {
   background: var(--primary-green);
   color: white;
@@ -55,10 +213,11 @@ body {
 }
 
 .main-header h1 {
+  font-weight: 500;
   margin: 0;
   line-height: 1;
   font-family: Celevenia;
-  font-size: 4.5rem;
+  font-size: 3.5rem;
 }
 
 #current-date {
@@ -84,7 +243,7 @@ body {
 
 .masjid-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
   gap: 20px;
 }
 
@@ -103,7 +262,7 @@ body {
 /* Address Link Styling */
 .masjid-address a {
   text-decoration: none; /* Remove default underline */
-  color: #a3741c; /* Keep original color */
+  color: #666; /* Keep original color */
   align-items: center;
   gap: 5px;
   transition: color 0.2s ease, transform 0.2s ease;
@@ -221,15 +380,6 @@ body {
 @media (max-width: 768px) {
   .masjid-grid { grid-template-columns: 1fr; }
   .main-header h1 { font-size: 1.4rem; }
-  .header-logo {
-    height: 40px; /* Smaller logos on phones */
-  }
-  .header-text h1 {
-      font-size: 1.1rem;
-  }
-  #current-date {
-      font-size: 0.8rem;
-  }
 }
 
 @media print {
@@ -373,3 +523,120 @@ body {
   font-weight: 600;
 }
 
+
+/* Print Button Styling */
+.print-btn {
+    background: white;
+    color: var(--primary-green);
+    border: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.print-btn:hover {
+    background: white;
+    transform: scale(1.05);
+}
+
+/* PDF Specific Styling */
+#pdf-template {
+    width: 1300px;
+    padding: 30px;
+    background: #ffffff;
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.pdf-grid {
+  column-count: 2;
+  column-gap: 30px;
+  display: block; /* Ensure it's not flex/grid to allow column-count to work */
+}
+
+.pdf-zone-group {
+  break-inside: avoid; /* Prevents the zone from splitting between columns */
+  display: inline-block; /* Helps some browsers respect the break rule */
+  width: 100%; /* Ensures it fills the column width */
+  margin-bottom: 15px;
+}
+
+.pdf-zone-header {
+  background: var(--primary-green);
+  color: white;
+  padding: 8px 15px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-top: 25px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.pdf-row {
+  display: grid;
+  grid-template-columns: 1.2fr 2fr; /* Masjid Info | Khutbah Slots */
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+  align-items: center;
+}
+
+
+.pdf-m-name {
+  color: var(--primary-green);
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 2px;
+}
+
+.pdf-m-address {
+  color: #888;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.pdf-slots-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-slot-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.pdf-time-tag {
+  white-space: nowrap;
+  display: flex;
+  background: #e8f5e9;
+  color: var(--primary-green);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 1.0rem;
+  margin-left: 15px;
+}
+
+.pdf-khateeb {
+  text-align: right;
+  font-weight: 600;
+  color: #444;
+  font-size: 1.2rem;
+}
+
+.pdf-ordinal {
+  color: var(--accent-gold);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  margin-left: 15px;
+}
