@@ -43,19 +43,6 @@ body {
   object-fit: contain;
 }
 
-/* Mobile Adjustments */
-@media (max-width: 600px) {
-  .header-logo {
-      height: 40px; /* Smaller logos on phones */
-  }
-  .header-text h1 {
-      font-size: 1.1rem;
-  }
-  #current-date {
-      font-size: 0.8rem;
-  }
-}
-
 .main-header {
   background: var(--primary-green);
   color: white;
@@ -116,7 +103,7 @@ body {
 /* Address Link Styling */
 .masjid-address a {
   text-decoration: none; /* Remove default underline */
-  color: #666; /* Keep original color */
+  color: #a3741c; /* Keep original color */
   align-items: center;
   gap: 5px;
   transition: color 0.2s ease, transform 0.2s ease;
@@ -234,6 +221,15 @@ body {
 @media (max-width: 768px) {
   .masjid-grid { grid-template-columns: 1fr; }
   .main-header h1 { font-size: 1.4rem; }
+  .header-logo {
+    height: 40px; /* Smaller logos on phones */
+  }
+  .header-text h1 {
+      font-size: 1.1rem;
+  }
+  #current-date {
+      font-size: 0.8rem;
+  }
 }
 
 @media print {
