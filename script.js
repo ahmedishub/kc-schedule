@@ -213,7 +213,7 @@ document.getElementById('download-pdf').addEventListener('click', async () => {
         <div class="pdf-header" style="display: flex; align-items: center; justify-content: center; border-bottom: 3px solid #1b5e20; padding-bottom: 25px;">
             
             <div style="width: 200px; display: flex; justify-content: flex-start;">
-                <img src="/img/kc-logo.png" style="height: 150px; width: auto; object-fit: contain;" alt="KC Logo">
+                <img src="kc-logo.png" style="height: 150px; width: auto; object-fit: contain;" alt="KC Logo">
             </div>
             
             <div style="text-align: center; flex: 1;">
@@ -226,7 +226,7 @@ document.getElementById('download-pdf').addEventListener('click', async () => {
             </div>
 
             <div style="width: 200px; display: flex; justify-content: flex-end;">
-                <img src="/img/isgh-logo.png" style="height: 150px; width: auto; object-fit: contain;" alt="ISGH Logo">
+                <img src="isgh-logo.png" style="height: 150px; width: auto; object-fit: contain;" alt="ISGH Logo">
             </div>
         </div>
         <div class="pdf-grid">`;
